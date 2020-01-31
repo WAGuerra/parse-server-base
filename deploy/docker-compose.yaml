@@ -1,0 +1,63 @@
+version: "3.7" #TODO check for version upgrade
+services:
+  # Config from
+  # https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-debian-9
+  traefik:
+    image: traefik:1.7.6-alpine #TODO check for version upgrade
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./config/traefik.toml:/traefik.toml"
+      - "./config/acme.json:/acme.json"
+    labels:
+      - traefik.frontend.rule=Host:domain.com.br #TODO change the domain name
+      - traefik.port=8080
+    networks:
+      - web
+  mongo:
+    image: mongo
+    volumes:
+      - data:/data/db
+    networks:
+      - internal
+    labels:
+      - name=database
+      - traefik.enable=false
+      - traefik.backend=database
+    depends_on:
+      - traefik
+  server:
+    restart: always
+    image: server #TODO change this
+    environment:
+      - PARSE_MOUNT=/api
+      - DATABASE_NAME=server-database #TODO change this
+      - DATABASE_URI=mongodb://mongo:27017/
+      - APP_ID=noID #FIXME change this
+      - MASTER_KEY=noMasterKey #FIXME change this
+      - SERVER_DOMAIN=https://domain.com.br #TODO change this
+      - PARSE_DASHBOARD_ROOT_USER_PASSWORD="no-password" #TODO change this
+      - PARSE_SERVER_PORT=1337
+      - PARSE_LOG_LEVEL=error
+    networks:
+      - web
+      - internal
+    labels:
+      - traefik.backend=server
+      - traefik.frontend.rule=Host:server.com.br #TODO change this
+      - traefik.docker.network=web
+      - traefik.enable=true
+      - traefik.port=1337
+    depends_on:
+      - mongo
+      - traefik
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
+volumes:
+  data:

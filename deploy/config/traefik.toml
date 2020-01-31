@@ -1,0 +1,34 @@
+defaultEntryPoints = ["http", "https"]
+logLevel = "DEBUG"
+
+[entryPoints]
+  [entryPoints.dashboard]
+    address = ":8080"
+    [entryPoints.dashboard.auth]
+      [entryPoints.dashboard.auth.basic]
+        users = ["admin:$apr1$WioeStLi$5kUQalktxfNbm/ww9Y0nC/"] # 35kamEw5
+
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+        entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+      [entryPoints.https.tls]
+
+[api]
+  entrypoint="dashboard"
+
+[acme]
+  email = "wladimir.guerra@gmail.com"
+  storage = "acme.json"
+  entryPoint = "https"
+  onHostRule = true
+  [acme.httpChallenge]
+    entryPoint = "http"
+
+[docker]
+  endpoint = "unix:///var/run/docker.sock"
+  domain = "domain.com.br" #TODO change this
+  watch = true # Only used for swarn
+  network = "web"

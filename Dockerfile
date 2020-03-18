@@ -3,7 +3,7 @@ FROM node:12.13.0
 #TODO change this
 RUN mkdir server
 
-# To use wladimir.guerra private packages
+# To use npm private packages
 # See https://docs.npmjs.com/docker-and-private-modules for further details
 ARG NPM_TOKEN
 

@@ -1,16 +1,18 @@
 {
   "name": "parse-server-base",
   "version": "0.0.0",
+  "description": "A starting point application with Parse Server as backend.",
   "private": true,
-  "main": "./src/index.js",
+  "main": "server.js",
   "scripts": {
+    "build-prod": "rm -R dist/* && webpack --env production",
     "build-dev": "webpack --env development",
     "run-dev": "npm run build-dev && node dist/server.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "parse-server": "^3.10.0",
+    "parse-server": ">=4.1.0",
     "parse-dashboard": "^2.0.5",
     "morgan": "^1.9.1",
     "mongodb": "^3.5.2",

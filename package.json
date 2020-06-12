@@ -5,7 +5,7 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "build-prod": "rm -R dist/* && webpack --env production",
+    "build-prod": "webpack --env production",
     "build-dev": "webpack --env development",
     "run-dev": "npm run build-dev && node dist/server.js"
   },

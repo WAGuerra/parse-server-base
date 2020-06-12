@@ -5,7 +5,7 @@
     "strictNullChecks": true,   // enable strict null checks as a best practice
     "module": "ES6",            // specify module code generation
     "jsx": "react",             // use typescript to transpile jsx to js
-    "target": "ES2019",            // specify ECMAScript target version
+    "target": "ES6",            // specify ECMAScript target version
     "allowJs": true,         // allow a partial TypeScript and JavaScript codebase
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
@@ -13,5 +13,12 @@
   },
   "include": [
     "./src/"
-  ]
+  ],
+  "typedocOptions": {
+  "inputFiles": "src/",
+  "mode": "module",
+  "out": "docs/",
+  "theme": "minimal",
+  "exclude": "**/*+(index|.spec|.e2e|.test).ts"
+}
 }

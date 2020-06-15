@@ -93,6 +93,5 @@ const parseServer = new ParseServer({
   },
 });
 
-// Register subclasses here
 
 export default parseServer;

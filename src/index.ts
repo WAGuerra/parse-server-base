@@ -3,6 +3,7 @@
  */
 import http from "http";
 import app from "./app";
+import bootstrap from "./bootstrap";
 import parseServer from "./parseServer";
 
 
@@ -103,3 +104,6 @@ function onListening() {
   console.info(colors.yellow("\nListening on: ") + colors.bold.yellow(bind) +
                "\n");
 }
+
+
+bootstrap()

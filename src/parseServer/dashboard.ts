@@ -8,7 +8,7 @@ const dashboard = new ParseDashboard({
       'serverURL': serverUrl,
       'appId': appId,
       'masterKey': masterKey,
-      'appName': "Application", //TODO change if needed
+      'appName': "Application", //TODO change this
       'supportedPushLocales': ['en', 'pt'],
     },
   ],
